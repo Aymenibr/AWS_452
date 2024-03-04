@@ -7,21 +7,8 @@ const {
   GatheringParticipants,
   Gatherings,
 } = require("../models");
-const PASSWORD = process.env.PASSWORD;
 const bcrypt = require("bcrypt");
-const cookieParser = require("cookie-parser");
 const { createTokens, validateToken } = require("../JWT");
-
-// router.get("/:password", async (req, res) => {
-//   const { password } = req.params;
-//   if (password !== PASSWORD) {
-//     return res.status(401).json({
-//       message: "Unauthirzed",
-//     });
-//   }
-//   const listOfUsers = await Users.findAll();
-//   res.json(listOfUsers);
-// });
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -39,9 +26,6 @@ router.post("/register", async (req, res) => {
       });
       newUser = Users.findOne({ where: { email: email } });
       console.log(newUser.email);
-      // Carts.create({
-      //   userId: newUser.id,
-      // });
       res.json("User Registered Successfully !");
     })
     .catch((err) => {
@@ -170,15 +154,6 @@ router.get("/participations", validateToken, async (req, res) => {
   const participations = await GatheringParticipants.findAll({
     where: { userId: user.id },
   });
-  // const gatherings = await Promise.all(
-  //   participations.map(async (participation) => {
-  //     const gathering = await Gatherings.findOne({
-  //       where: { id: participation.gatheringId },
-  //     });
-  //     return gathering;
-  //   })
-  // );
-  //res.json(gatherings);
   res.json(participations);
 });
 

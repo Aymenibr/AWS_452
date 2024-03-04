@@ -20,7 +20,6 @@ app.use("/event", eventsRouter);
 const gatheringsRouter = require("./routes/Gatherings");
 app.use("/gathering", gatheringsRouter);
 
-
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("Server is running on port 3001");

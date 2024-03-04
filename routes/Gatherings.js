@@ -46,26 +46,6 @@ router.post("/:password", async (req, res) => {
   }
 });
 
-// // Update a gathering
-// router.patch("/:id", getGathering, async (req, res) => {
-//   if (req.body.title != null) {
-//     res.gathering.title = req.body.title;
-//   }
-//   if (req.body.date != null) {
-//     res.gathering.date = req.body.date;
-//   }
-//   if (req.body.description != null) {
-//     res.gathering.description = req.body.description;
-//   }
-
-//   try {
-//     const updatedgathering = await res.gathering.save();
-//     res.json(updatedgathering);
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
-
 // Delete a gathering
 router.delete("/:password/:id", getGathering, async (req, res) => {
   const { password } = req.params;

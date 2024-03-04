@@ -46,26 +46,6 @@ router.post("/:password", async (req, res) => {
   }
 });
 
-// // Update a event
-// router.patch("/:id", getEvent, async (req, res) => {
-//   if (req.body.title != null) {
-//     res.event.title = req.body.title;
-//   }
-//   if (req.body.date != null) {
-//     res.event.date = req.body.date;
-//   }
-//   if (req.body.description != null) {
-//     res.event.description = req.body.description;
-//   }
-
-//   try {
-//     const updatedevent = await res.event.save();
-//     res.json(updatedevent);
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
-
 // Delete a event
 router.delete("/:password/:id", getEvent, async (req, res) => {
   const { password } = req.params;

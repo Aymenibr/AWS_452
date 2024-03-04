@@ -16,20 +16,19 @@ router.get("/:password", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const { name, email, text} = req.body;    
+  const { name, email, text } = req.body;
   try {
-    if(!name || !email || !text){
-        return res.status(400).json({ error: "Please fill all the fields" });
+    if (!name || !email || !text) {
+      return res.status(400).json({ error: "Please fill all the fields" });
     }
-      const newRequest = await Messages.create({
-          name,
-          email,
-          text,
-        
-      });
-      res.json(newRequest);
+    const newRequest = await Messages.create({
+      name,
+      email,
+      text,
+    });
+    res.json(newRequest);
   } catch (error) {
-      res.status(500).json({ error: "Failed to send a message" });
+    res.status(500).json({ error: "Failed to send a message" });
   }
 });
 
