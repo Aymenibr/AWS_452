@@ -80,7 +80,7 @@ router.post("/cart", validateToken, async (req, res) => {
     cartId: cart.id,
     productId: itemId,
   });
-  //res.json("Product added to cart");
+  res.json("Product added to cart");
 });
 
 router.delete("/cart/:id", validateToken, async (req, res) => {
