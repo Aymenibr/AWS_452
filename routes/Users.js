@@ -95,7 +95,6 @@ router.delete("/cart/:id", validateToken, async (req, res) => {
 // delete request to clear the cart
 router.delete("/cart", validateToken, async (req, res) => {
   try {
-
     const user = await Users.findOne({ where: { id: req.user.id } });
     const msg = {
       to: user.email, // Change to your recipient
@@ -118,7 +117,6 @@ router.delete("/cart", validateToken, async (req, res) => {
     console.error("There was an error!", error);
   }
 });
-
 
 // put request to update the quantity of a product in the cart
 router.put("/cart", validateToken, async (req, res) => {
