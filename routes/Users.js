@@ -10,6 +10,9 @@ const {
 const bcrypt = require("bcrypt");
 const { createTokens, validateToken } = require("../JWT");
 
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   const existingUser = await Users.findOne({ where: { email: email } });
@@ -91,10 +94,31 @@ router.delete("/cart/:id", validateToken, async (req, res) => {
 
 // delete request to clear the cart
 router.delete("/cart", validateToken, async (req, res) => {
-  const cart = await Carts.findOne({ where: { userId: req.user.id } });
-  await CartProducts.destroy({ where: { cartId: cart.id } });
-  res.json("Cart Cleared");
+  try {
+
+    const user = await Users.findOne({ where: { id: req.user.id } });
+    const msg = {
+      to: user.email, // Change to your recipient
+      from: "brightstar.saudi@gmail.com", // Change to your verified sender
+      subject: "Order Received",
+      text: `hello ${user.name}, your order has been received. and we will get back to you soon.`,
+    };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email sent");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    const cart = await Carts.findOne({ where: { userId: req.user.id } });
+    await CartProducts.destroy({ where: { cartId: cart.id } });
+    res.json("Checkout Successful");
+  } catch (error) {
+    console.error("There was an error!", error);
+  }
 });
+
 
 // put request to update the quantity of a product in the cart
 router.put("/cart", validateToken, async (req, res) => {
