@@ -8,7 +8,7 @@ const {
   Gatherings,
 } = require("../models");
 const bcrypt = require("bcrypt");
-const { createTokens, validateToken } = require("../JWT");
+const { createTokens, validateToken } = require("../middleware/JWT.JS");
 
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
